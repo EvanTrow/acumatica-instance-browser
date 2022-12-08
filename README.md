@@ -2,21 +2,19 @@
 
 Creates an HTML file in the root of your IIS site to navigate to multiple Acumatica instances - **_Only works with Windows_**
 
-# Requirements
+## Use
 
--   [NodeJS](https://nodejs.org/en/download/)
-
-# Use
+To start the script just run the [executable file](https://github.com/EvanTrow/acumatica-instance-browser/releases):
 
 ```shell
-npm start
+acumatica-instance-browser.exe
 ```
 
-# Screenshots
+## Screenshots
 
 ![Use](./doc/screenshot01.png 'Example')
 
-# Configuration
+## Configuration
 
 You can change parameters by editing the `config.json` file:
 
@@ -25,3 +23,30 @@ You can change parameters by editing the `config.json` file:
 | htmlOutput              | Where the html file will be saved            |
 | instanceInstallLocation | Install location of your Acumatica instances |
 | openInNewTab            | Opens new tab when you click on an instance  |
+
+# Development
+
+## Requirements
+
+-   [NodeJS](https://nodejs.org/en/download/)
+
+## Install NodeJS Dependencies
+
+```shell
+npm install
+npm install pgk -g
+```
+
+## Running
+
+```shell
+npm start
+```
+
+## Build Executable
+
+Build exe file to `dist/` directory
+
+```shell
+npm run build
+```
