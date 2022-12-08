@@ -7,10 +7,26 @@
 		"start": "node index.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EvanTrow/acumatica-instance-browser.git"
+	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"colors": "^1.4.0",
 		"fs": "^0.0.1-security",
+		"prompt-sync": "^4.2.0",
 		"xml-js": "^1.6.11"
+	},
+	"bugs": {
+		"url": "https://github.com/EvanTrow/acumatica-instance-browser/issues"
+	},
+	"homepage": "https://github.com/EvanTrow/acumatica-instance-browser#readme",
+	"pkg": {
+		"targets": [
+			"node16-win-x64"
+		],
+		"outputPath": "dist"
 	}
 }

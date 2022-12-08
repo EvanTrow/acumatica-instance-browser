@@ -1,11 +1,40 @@
-const fs = require('fs').promises;
+const fs = require('fs');
+const fsp = require('fs').promises;
+
+const prompt = require('prompt-sync')({ sigint: true });
+const colors = require('colors');
 
 const convert = require('xml-js');
 const xmlOptions = { compact: true, spaces: 4 };
 
-const config = require('./config.json');
+//const config = require('./config.json');
 
-start();
+var config = {};
+
+fs.readFile('config.json', (err, data) => {
+	if (err) {
+		console.log(colors.red('Config not found. ') + 'Running setup...');
+
+		var htmlOutput = prompt(`${colors.cyan.bold('HTML output location?')} (${colors.dim('C:\\inetpub\\wwwroot')}) : `);
+		if (!htmlOutput) config.htmlOutput = `C:\\inetpub\\wwwroot`;
+		else config.htmlOutput = htmlOutput;
+
+		var instanceInstallLocation = prompt(`${colors.cyan.bold('Acumatica instance install location?')} (${colors.dim('D:\\AcuInstances')}) : `);
+		if (!instanceInstallLocation) config.instanceInstallLocation = `D:\\AcuInstances`;
+		else config.instanceInstallLocation = instanceInstallLocation;
+
+		var openInNewTab = prompt(`${colors.cyan.bold('Open links in new tabs?')} (${colors.dim('Y/n')}) : `);
+		if (!openInNewTab) config.openInNewTab = true;
+		else config.openInNewTab = openInNewTab.toLocaleLowerCase() == 'y' ? true : false;
+
+		require('fs').writeFileSync('config.json', JSON.stringify(config));
+	} else {
+		config = JSON.parse(data);
+	}
+
+	start();
+});
+
 async function start() {
 	var sitesData = await loadXml('C:\\Windows\\System32\\inetsrv\\config\\applicationHost.config');
 	sitesData = sitesData.configuration['system.applicationHost'].sites.site.application;
@@ -40,7 +69,7 @@ async function start() {
 	});
 	templateHtml = templateHtml.replace('{{row_data}}', tableHtml);
 
-	await fs.writeFile(`${config.htmlOutput}\\index.html`, templateHtml, (err) => {
+	await fsp.writeFile(`${config.htmlOutput}\\index.html`, templateHtml, (err) => {
 		if (err) {
 			console.error(err);
 		}
@@ -55,11 +84,11 @@ async function asyncForEach(array, callback) {
 	}
 }
 async function loadXml(path) {
-	const data = await fs.readFile(path, 'utf8');
+	const data = await fsp.readFile(path, 'utf8');
 	return convert.xml2js(data, xmlOptions);
 }
 async function loadHtml(path) {
-	const data = await fs.readFile(path, 'utf8');
+	const data = await fsp.readFile(path, 'utf8');
 	return data;
 }
 function dynamicSort(property) {
