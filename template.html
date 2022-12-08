@@ -9,8 +9,8 @@
 
 		<!-- Favicons -->
 
-		<link rel="icon" href="https://www.acumatica.com/favicon.ico" />
-		<meta name="theme-color" content="#33ccff" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="theme-color" content="#4caf50" />
 
 		<style>
 			.bd-placeholder-img {
@@ -72,7 +72,7 @@
 		<div class="container">
 			<main>
 				<div class="py-5 text-center">
-					<img class="d-block mx-auto mb-4" src="https://cdn.acumatica.com/content/themes/acumatica/assets/img/svg/logo-dark.svg" alt="Acumatica: The Cloud ERP" height="57" />
+					<img class="d-block mx-auto mb-4" src="/acuLogo.svg" alt="Acumatica: The Cloud ERP" height="57" />
 					<h2>Local Development Instances</h2>
 				</div>
 
@@ -83,6 +83,7 @@
 								<th scope="col">Name</th>
 								<th scope="col">Version</th>
 								<th scope="col">Directory</th>
+								<th scope="col">Database</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -101,5 +102,10 @@
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+		<script>
+			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+			const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+		</script>
 	</body>
 </html>
