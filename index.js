@@ -59,6 +59,7 @@ async function start() {
 
 				await sql.connect(`${connectionString};Encrypt=true;trustServerCertificate=true`);
 				const result = await sql.query(`SELECT 
+									dbName = DB_NAME(),
 									logSizeGb = CAST(SUM(CASE WHEN type_desc = 'LOG' THEN size END) * 8. / 1024 / 1024 AS DECIMAL(12,4)),
 									dbSizeGb = CAST(SUM(CASE WHEN type_desc = 'ROWS' THEN size END) * 8. / 1024 / 1024 AS DECIMAL(12,4)),
 									totalSizeGb = CAST(SUM(size) * 8. / 1024 / 1024 AS DECIMAL(12,4))
@@ -89,7 +90,7 @@ async function start() {
 			site?.db
 				? `<a data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="DB: ${site?.db?.logSizeGb.toFixed(2)} GB<br>Log: ${site?.db?.dbSizeGb.toFixed(
 						2
-				  )} GB<br>Total: ${site?.db?.totalSizeGb.toFixed(2)} GB">${site?.db?.totalSizeGb.toFixed(2)} GB</a>`
+				  )} GB<br>Total: ${site?.db?.totalSizeGb.toFixed(2)} GB">${site?.db?.dbName}</a>`
 				: ''
 		}</td></tr>`;
 	});
@@ -104,11 +105,11 @@ async function start() {
 
 	// write files
 	await asyncForEach(files, async (file, i) => {
-		console.log(`Writing ${file.name}`);
+		console.log(`${colors.yellow('Writing')} ${file.name}...`);
 		await fsp.writeFile(`${config.htmlOutput}\\${file.name}`, file.data, { encoding: 'base64' });
 	});
 
-	console.log('Complete!');
+	console.log(colors.green('Complete! '));
 }
 
 async function asyncForEach(array, callback) {
