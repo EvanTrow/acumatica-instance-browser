@@ -88,7 +88,7 @@ async function start() {
 	sites.forEach((site) => {
 		tableHtml += `<tr><td><a href="${site.path}" ${config.openInNewTab ? 'target="_blank"' : ''}>${site.name}</a></td><td>${site.version}</td><td>${site.directory}</td><td>${
 			site?.db
-				? `<a data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="DB: ${site?.db?.logSizeGb.toFixed(2)} GB<br>Log: ${site?.db?.dbSizeGb.toFixed(
+				? `<a data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="DB: ${site?.db?.dbSizeGb.toFixed(2)} GB<br>Log: ${site?.db?.logSizeGb.toFixed(
 						2
 				  )} GB<br>Total: ${site?.db?.totalSizeGb.toFixed(2)} GB">${site?.db?.dbName}</a>`
 				: ''
